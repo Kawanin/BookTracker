@@ -1,15 +1,7 @@
 package com.example.BookTracker.presentation.screen.details
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import android.content.Intent
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -18,14 +10,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Star
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SuggestionChip
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -33,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.skydoves.landscapist.ImageOptions
@@ -48,6 +34,7 @@ fun DetailsScreen(
     val viewModel = koinViewModel<DetailsViewModel>()
     val selectedBook by viewModel.selectedBook
     val isFavorite by viewModel.isFavorite
+    val context = LocalContext.current
 
     Scaffold(
         topBar = {
@@ -150,6 +137,26 @@ fun DetailsScreen(
                     )
                     Spacer(modifier = Modifier.width(6.dp))
                 }
+            }
+            Spacer(modifier = Modifier.height(24.dp))
+
+            Button(
+                onClick = {
+                    val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                        type = "text/plain"
+                        putExtra(
+                            Intent.EXTRA_TEXT,
+                            "Veja esse livro:\n" +
+                                    "Titulo: ${selectedBook?.title ?: "Titulo indefinido"}\n" +
+                                    "Autor: ${selectedBook?.author ?: "Autor indefinido"}\n" +
+                                    "Sumário: ${selectedBook?.summary ?: "Sem descrição :/"}"
+                        )
+                    }
+                    context.startActivity(Intent.createChooser(shareIntent, "Compartilhe os detalhes!"))
+                },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(text = "Compartilhe os detalhes!")
             }
         }
     }

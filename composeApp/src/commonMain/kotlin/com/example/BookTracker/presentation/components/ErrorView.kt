@@ -13,6 +13,6 @@ fun ErrorView(message: String? = null) {
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
-        Text(text = message ?: "Empty")
+        Text(text = message ?: "Adicione um livro novo")
     }
 }
