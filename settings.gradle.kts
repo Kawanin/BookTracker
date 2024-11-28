@@ -1,4 +1,4 @@
-rootProject.name = "RoomDemo"
+rootProject.name = "BookTracker"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {
