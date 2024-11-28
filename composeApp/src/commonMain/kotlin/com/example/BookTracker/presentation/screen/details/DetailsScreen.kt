@@ -156,7 +156,7 @@ fun DetailsScreen(
                 },
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text(text = "Compartilhe os detalhes!")
+                Text(text = "Compartilhe os detalhes com seus amigos!")
             }
         }
     }
