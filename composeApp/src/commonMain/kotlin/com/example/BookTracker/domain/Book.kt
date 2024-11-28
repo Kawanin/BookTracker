@@ -1,7 +1,5 @@
 package com.example.BookTracker.domain
 
-import android.content.Intent
-import androidx.core.content.ContextCompat.startActivity
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
